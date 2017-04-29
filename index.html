@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<title>Simon's Shell</title>
+<link rel="stylesheet" href="styles.css" >
+</head>
+
+
+<body>
+<div id="gameShell" >
+<div id="inner">
+<svg id="game" width="500" height="500" viewBox="0 0 500 500">
+
+  <circle cx="250" cy="250" r="225" fill="black" />
+
+  <path id="yellow" d="M250 50 A200 200, 0, 0,1, 450 250
+           L 250 250 Z" stroke="black" stroke-width="9" fill="yellow" />
+  <path id="red" d="M450 250 A200 200, 0, 0,1, 250 450
+           L 250 250 Z" stroke="black" stroke-width="9" fill="red" />
+  <path id="green" d="M250 450 A200 200, 0, 0,1, 50 250
+           L 250 250 Z" stroke="black" stroke-width="9" fill="green" />
+  <path id="blue" d="M50 250 A200 200, 0, 0,1, 250 50
+           L 250 250 Z" stroke="black" stroke-width="9" fill="blue" />
+</svg>
+</div>
+</div>
+
+<h1>Simon</h1>
+</body>
+</html>
