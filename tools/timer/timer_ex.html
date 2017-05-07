@@ -27,7 +27,9 @@ class GameDisplay extends React.Component{
 
   tick(){
     setTimeout(() => this.colorChange(), 250);
-    setTimeout(() => this.colorChange(), 250);
+    setTimeout(() => this.colorChange(), 350);
+    setTimeout(() => this.colorChange(), 750);
+    setTimeout(() => this.colorChange(), 950);
     this.colorChange();
     this.setState((prevState) => ({
       secondsElapsed: prevState.secondsElapsed + 1,
@@ -45,7 +47,7 @@ class GameDisplay extends React.Component{
   }
 
   componentDidMount(){
-    this.interval = setInterval(() => this.tick(), 1000);
+    this.interval = setInterval(() => this.tick(), 1500);
   }
 
   componentWillUnmount(){
