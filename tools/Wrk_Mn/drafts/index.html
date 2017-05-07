@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<title>Working Man</title>
+<link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+<style>
+
+body {
+  background-color: rgb(68, 68, 68);
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="root"></div>
+</body>
+<script type="text/babel">
+
+var changed = false;
+ 
+function changeColor(){
+    var tgt = document.getElementById("heart");
+    tgt.style.fill = changed ? "red": "green";
+    tgt.style.opacity = 1;
+    changed = !changed;
+  }
+
+
+
+class GameDisplay extends React.Component{
+
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return(
+    <div>
+      <h1>In Game Display</h1>
+      <svg id="main_disp" width="300" height="300">
+        <circle cx="150" cy="150" r="50" fill="black" />
+        <circle id="heart" cx="150" cy="150" r="30" fill="red" />
+      </svg>
+      <button type="submit" onClick={changeColor}>Color</button>
+    </div>
+  );
+  }
+}
+
+
+
+
+class App extends React.Component {
+  render(){
+    return(
+      <div>
+      <GameDisplay />
+      </div>
+    )
+  };
+}
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
+);
+</script>
+
+</html>

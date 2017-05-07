@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My First React Example</title>
+  </head>
+  <body>
+    <div id="greeting-div"></div>
+
+    <script src="https://fb.me/react-15.0.0.js"></script>
+    <script src="https://fb.me/react-dom-15.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script type="text/babel">
+    var RandomMessage = React.createClass({
+      getInitialState: function(){
+        return {message: "Hallo Motto!"};
+      },
+      onClick: function(){
+        var messages = ['Enter the Dragon!', 'Planet of the Apes', 'Behind the Green Door'];
+        var randomMessage = messages[Math.floor((Math.random() * 3))];
+
+        this.setState({message: randomMessage });
+      },
+      render: function(){
+        return(
+          <div>
+            <MessageView message={this.state.message} />
+            <p><input type="button" onClick={this.onClick} value="Change Message" /></p>
+          </div>
+        );
+      }
+
+    });
+
+    var MessageView = React.createClass({
+      render: function(){
+        return(
+          <h1>{this.props.message}</h1>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <RandomMessage />,
+      document.getElementById("greeting-div")
+    );
+
+
+    </script>
+  </body>
+</html>

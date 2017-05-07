@@ -1,0 +1,19 @@
+I am new to working with React and as an exercise have tried to modify the clock example
+from React's splash page.  The goal is to have the seconds count at one interval and change 
+circle's color at a more rapid interval.  
+
+I have tried to do this by using ```setTimeout``` functions for the changes to the circle
+and called them from within the ```tick``` function but the ```setTimeout``` calls are not being 
+recognized.  
+
+Is this an issue with React and the ```setInterval``` conflicting with the ```setTimeout```?
+If so what is the best way to achieve offset timed events? 
+
+Thank you for your time. 
+
+
+
+
+
+
+react and multiple timed events
