@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<title>Better Timer</title>
+
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<link rel="stylesheet" href="styles.css" >
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+//big one is the use of the merge function with the Object.assign
+//it takes 2 arguments but overwites the second over the first
+//in this case Mihiel used the first to bring forward the previous state
+//and the second to perform the updates
+
+
+
+  const merge = (x,y) => Object.assign({}, x,y);
+  class GameDisplay extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        fill: props.primaryFill, 
+        secondsElapsed: 0
+      }
+      this.tick = this.tick.bind(this)
+      this.colorChange = this.colorChange.bind(this)
+    }
+    tick(){
+      this.colorChange();
+//example of the update on the second argument
+      this.setState((prevState) => merge(prevState, {secondsElapsed: prevState.secondsElapsed + 1}));
+      setTimeout(this.colorChange, 250)
+      setTimeout(this.colorChange, 500)
+      setTimeout(this.colorChange, 750)
+    }
+    colorChange(){
+      this.setState((prevState, props) => {
+        const { primaryFill, secondaryFill } = props
+        const oldFill = this.state.fill
+        const fill = oldFill === primaryFill ? secondaryFill: primaryFill
+//example of the update on the second argument
+        return merge(prevState, {fill}) 
+      })
+    }
+    componentDidMount(){
+      this.tick()
+      this.interval = setInterval(this.tick, 1000);
+    }
+    componentWillUnmount(){
+      clearInterval(this.interval);
+    }
+    render(){
+      return(
+        <div>
+          <h1>Seconds Elapsed: {this.state.secondsElapsed} </h1>
+          <svg id="main_disp" width="300" height="300">
+            <circle cx="150" cy="150" r="50" fill="black" />
+            <circle id="heart" cx="150" cy="150" r="30" fill={this.state.fill} />
+          </svg>
+        </div>
+      );
+    }
+  }
+
+  function App(){
+    return(
+      <div>
+        <GameDisplay primaryFill="red" secondaryFill="green" />
+      </div>
+    )
+  }
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById("root")
+);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

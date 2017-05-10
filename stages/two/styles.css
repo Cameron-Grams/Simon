@@ -1,0 +1,55 @@
+#gameShell {
+  position: absolute;
+  top: 75px;
+  margin: auto;
+  width: 100%;
+  border: 1px solid black;
+}
+
+#gameOnBtn:hover {
+  fill: red;
+}
+
+#inner {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+#yellow {
+  opacity: 0.5;
+}
+
+#yellow:hover {
+  opacity: 1;
+}
+
+#red {
+  opacity: 0.5;
+}
+#red:hover {
+    opacity: 1;
+}
+
+#green {
+  opacity: 0.5;
+}
+
+#green:hover {
+  opacity: 1;
+}
+
+#blue {
+  opacity: 0.5;
+}
+
+#blue:hover{
+  opacity: 1;
+}
+
+
+
+
+
+
