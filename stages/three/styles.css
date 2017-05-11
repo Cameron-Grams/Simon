@@ -1,0 +1,41 @@
+#gameShell {
+  position: absolute;
+  top: 75px;
+  margin: auto;
+  width: 100%;
+  border: 1px solid transparent;
+}
+
+#inner {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+#strictBtn:hover {
+  background-color: white;
+  color: white;;
+  opacity: 1;
+}
+
+#strictBtn{
+  opacity: 0.6;
+}
+
+#yellow {
+  opacity: 0.5;
+}
+
+#red {
+  opacity: 0.5;
+}
+
+#green {
+  opacity: 0.5;
+}
+
+#blue {
+  opacity: 0.5;
+}
+

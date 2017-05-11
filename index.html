@@ -1,26 +1,44 @@
 <!doctype html>
 <html>
 <head>
-<title>Simon's Shell</title>
+<title>Draft 1 Simon Shell</title>
 <link rel="stylesheet" href="styles.css" >
+<script src="logic.js" ></script>
 </head>
 
 
 <body>
 <div id="gameShell" >
 <div id="inner">
-<svg id="game" width="500" height="500" viewBox="0 0 500 500">
+<svg id="game" width="600" height="600" viewBox="0 0 600 600">
 
-  <circle cx="250" cy="250" r="225" fill="black" />
+  <circle cx="300" cy="300" r="270" fill="black" />
 
-  <path id="yellow" d="M250 50 A200 200, 0, 0,1, 450 250
-           L 250 250 Z" stroke="black" stroke-width="9" fill="yellow" />
-  <path id="red" d="M450 250 A200 200, 0, 0,1, 250 450
-           L 250 250 Z" stroke="black" stroke-width="9" fill="red" />
-  <path id="green" d="M250 450 A200 200, 0, 0,1, 50 250
-           L 250 250 Z" stroke="black" stroke-width="9" fill="green" />
-  <path id="blue" d="M50 250 A200 200, 0, 0,1, 250 50
-           L 250 250 Z" stroke="black" stroke-width="9" fill="blue" />
+  <path id="yellow" d="M300 50 A250 250, 0, 0,1, 550 300
+           L 300 300 Z" stroke="black" stroke-width="9" fill="yellow"
+           value="yellow"
+           onClick="buttonPress(this.value)"
+            />
+  <path id="red" d="M550 300 A250 250, 0, 0,1, 300 550
+           L 300 300 Z" stroke="black" stroke-width="9" fill="red" />
+  <path id="green" d="M300 550 A250 250, 0, 0,1, 50 300
+           L 300 300 Z" stroke="black" stroke-width="9" fill="green" />
+  <path id="blue" d="M50 300 A250 250, 0, 0,1, 300 50
+           L 300 300 Z" stroke="black" stroke-width="9" fill="blue" />
+
+  <circle cx="300" cy="300" r="120" fill="white" stroke="black" />
+  <text x="255" y="235" font-family="arial" font-size="30" font-weight="bold" >Simon</text>
+  <text x="290" y="320" font-family="arial" font-size="20"  >Start</text>
+  <text x="350" y="320" font-family="arial" font-size="20"  >Strict</text>
+  <text x="270" y="395" font-family="arial" font-size="20"  >On/Off</text>
+
+  <circle id="startBtn" cx="315" cy="285" r="10" fill="black" stroke="black" />
+  <circle id="strictModeBtn" cx="375" cy="285" r="10" fill="black" stroke="black" />
+  <circle id="gameOnBtn" cx="300" cy="360" r="10" fill="black" stroke="black" onClick="powerOnGame()" />
+
+  <rect id="display" x="205" y="275" rx="10" ry="20" width="70" height="50" fill="rgb(70, 70, 70)" stroke="black" />
+
+
 </svg>
 </div>
 </div>
