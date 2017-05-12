@@ -1,0 +1,64 @@
+My goal is to iterate through an array, take the value of each element of the array as a key
+and play a sound clip associated with that value.  The final result desired is to sequentially
+play the sound clips, in the order of their  keys in the array. 
+
+Here is what I have tried so far: 
+
+//there are addresses associated with the color sound values 
+
+function playSound(soundValue){
+  $sound.src = soundValue;
+  $sound.load();
+  $sound.play();
+}
+
+function playGame(){
+  simonSays = [0,1,2,3];
+  
+  var soundOptions = {
+    0: yellowSound,
+    1: redSound,
+    2: blueSound,
+    3: greenSound 
+  };
+
+  for (var i = 0; i < simonSays.length; i++){
+    var callSound = soundOptions[simonSays[i]];
+    setTimeout(playSound(callSound),1000 );
+  }
+};
+
+
+
+This code iterates through the sequence and does wait for the ```setTimeout``` durations to
+finish. I receive this error:
+
+Uncaught (in promise) DOMException: The play() request was interrupted by a new load request.
+playSound @ logic.js:72
+playGame @ logic.js:120
+onclick @ index.html:37
+
+My understanding is that the audio files are interferring with each other and producing the
+error, but additionally there is no delay in the iteration through the sequence that allows 
+each file to complete.  I looked at [these](http://stackoverflow.com/questions/3273552/html5-audio-looping) 
+[examples](http://stackoverflow.com/questions/22492900/how-to-loop-sound-in-javascript)
+ of other efforts to delay media execution
+but neither a call to ```$sound.ended``` or ```$sound.onended``` were able to prevent the
+iteration ahead of the audio file completion. The project will increase the length and order of the array so I need
+some way to control the execution of each member of the array.  
+
+Can anyone offer any advice?  Thank you. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+var $sound = document.getElementById('sound');
+
+var $yellow = document.getElementById("yellow");
+var $red = document.getElementById("red");
+var $green = document.getElementById("green");
+var $blue = document.getElementById("blue");
+
+var $gameOnBtn = document.getElementById('gameOnBtn');
+var $startBtn = document.getElementById('startBtn');
+var $strictModeBtn = document.getElementById('strictModeBtn');
+
+var redSound = " https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
+var blueSound = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
+var greenSound = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
+var yellowSound = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+
+var powerOn = false;
+var gameInPlay = false;
+var strictMode = false;
+
+var buttonTimeInterval = 1000;
+
+var simonSays = [];
+
+function gameReset(){
+  console.log("Game Reset");
+}
+
+function powerOnGame(){
+  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
+  $sound.load();
+  $sound.play();
+
+  if (!powerOn){
+    $gameOnBtn.style.fill = "rgb(250, 0, 20)"; 
+    powerOn = true;
+  } else {
+    $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
+    powerOn = false;
+  }
+}
+
+function startGame(){
+  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
+  $sound.load();
+  $sound.play();
+
+  if (!gameInPlay){
+    $startBtn.style.fill = "rgb(20, 200, 50)"; 
+    gameInPlay = true;
+  } else {
+    $startBtn.style.fill = "rgb(0, 0, 0)"; 
+    gameInPlay = false;
+  }
+}
+
+function useStrictMode(){
+  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
+  $sound.load();
+  $sound.play();
+
+  if (!strictMode){
+    $strictModeBtn.style.fill = "rgb(250, 250, 250)"; 
+    strictMode = true;
+  } else {
+    $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
+    strictMode = false;
+  }
+}
+function pressYellow(){
+  console.log('pressed yellow');
+  playSound(yellowSound);
+}
+
+function pressRed(){
+  console.log('Pressed Red');
+  playSound(redSound);
+}
+
+function pressGreen(){
+  console.log('Pressed Green');
+  playSound(greenSound);
+}
+
+function pressBlue(){
+  console.log('pressed Blue');
+  playSound(blueSound);
+}
+
+function simonNext(){
+  return Math.floor(Math.random() * 4);
+}
+
+
+
+function playSound(soundValue){
+  $sound.src = soundValue;
+  $sound.load();
+  $sound.play();
+}
+
+function playGame(){
+  simonSays = [0,1,2,3];
+  
+  var soundOptions = {
+    0: yellowSound,
+    1: redSound,
+    2: blueSound,
+    3: greenSound 
+  };
+
+  for (var i = 0; i < simonSays.length; i++){
+    var callSound = soundOptions[simonSays[i]];
+    setTimeout(playSound(callSound),1000 );
+  }
+};
+
+
+
+
+
+
+
+
+window.onload = gameReset();

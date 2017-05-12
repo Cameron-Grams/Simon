@@ -1,16 +1,19 @@
+body {
+  background-color: rgb(75, 75, 75);
+}
+
+
 #gameShell {
   position: absolute;
   top: 75px;
   margin: auto;
   width: 100%;
-  border: 1px solid black;
 }
 
 #inner {
   margin: auto;
   width: 70%;
   text-align: center;
-  border: 1px solid black;
 }
 
 #yellow {
