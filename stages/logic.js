@@ -9,10 +9,14 @@ var $gameOnBtn = document.getElementById('gameOnBtn');
 var $startBtn = document.getElementById('startBtn');
 var $strictModeBtn = document.getElementById('strictModeBtn');
 
+var powerSound = "http://soundbible.com/grab.php?id=19&type=mp3";
 var redSound = " https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
 var blueSound = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
 var greenSound = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
 var yellowSound = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+var wrongAnsSound = "http://soundbible.com/grab.php?id=1501&type=mp3";
+var clickSound = "http://soundbible.com/grab.php?id=1705&type=mp3";
+
 
 var powerOn = false;
 var gameInPlay = false;
@@ -58,14 +62,16 @@ function flashBoard(i, l){
  } 
 
 function gameReset(){
+  $sound.src = powerSound;
+  $sound.load();
+  $sound.play();
+
   flashBoard(0, 3);
   console.log("Game Reset");
 }
 
 function powerOnGame(){
-  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
-  $sound.load();
-  $sound.play();
+  justSound(clickSound);
 
   if (!powerOn){
     $gameOnBtn.style.fill = "rgb(250, 0, 20)"; 
@@ -77,9 +83,7 @@ function powerOnGame(){
 }
 
 function startGame(){
-  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
-  $sound.load();
-  $sound.play();
+  justSound(clickSound);
 
   if (!gameInPlay){
     $startBtn.style.fill = "rgb(20, 200, 50)"; 
@@ -92,9 +96,7 @@ function startGame(){
 }
 
 function useStrictMode(){
-  $sound.src = "http://soundbible.com/grab.php?id=1705&type=mp3";
-  $sound.load();
-  $sound.play();
+  justSound(clickSound);  
 
   if (!strictMode){
     $strictModeBtn.style.fill = "rgb(250, 250, 250)"; 
@@ -165,13 +167,15 @@ function pressBlue(){
   }
 }
 
-function simonNext(){
-  return Math.floor(Math.random() * 4);
-}
-function playSound(soundValue, i){
+
+function justSound(soundValue){
   $sound.src = soundValue;
   $sound.load();
   $sound.play();
+}
+
+function playSound(soundValue, i){
+  justSound(soundValue);
   setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 300);
 }
 
@@ -193,15 +197,28 @@ function startPlaying(i, l){
   setTimeout("startPlaying("+ i + ", " + l + ")", buttonTimeInterval);
 };
 
+function simonNext(){
+  return Math.floor(Math.random() * 4);
+}
+
 function playGame(){
+  var simonMove = simonNext();
+  simonSays.push(simonMove);
+
   startPlaying(0, simonSays.length);
   currentValue = simonSays[iteration];
 }
 
 function fail(){
-//use strict...
-
+  justSound(wrongAnsSound);
 }
 
 
 window.onload = gameReset();
+
+
+
+
+
+
+
