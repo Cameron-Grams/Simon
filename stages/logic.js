@@ -26,9 +26,9 @@ var buttonTimeInterval = 1000;
 
 var simonSays = [];
 var currentValue = null;
-var iteration = 0;
+var increment = 0;
 
-simonSays = [0,1,2,3];
+// simonSays = [0,1,2,3];
 
 var soundOptions = {
   0: yellowSound,
@@ -43,30 +43,38 @@ var colorOptions = {
   2: $green,
   3: $blue
 };
+function flash(color){
+  color.style.opacity = 1;
+}
+
+function mute(color){
+  color.style.opacity = 0.6;
+}
 
 function flashBoard(i, l){
   if (i == l) return;
 
-  setTimeout("changeColorOn(0)", 500);
-  setTimeout("changeColorOn(1)", 500);
-  setTimeout("changeColorOn(2)", 500);
-  setTimeout("changeColorOn(3)", 500);
+  setTimeout("flash($yellow)", 500);
+  setTimeout("flash($red)", 500);
+  setTimeout("flash($green)", 500);
+  setTimeout("flash($blue)", 500);
 
-  setTimeout("changeColorOff(0)", 750);
-  setTimeout("changeColorOff(1)", 750);
-  setTimeout("changeColorOff(2)", 750);
-  setTimeout("changeColorOff(3)", 750);
+  setTimeout("mute($yellow)", 750);
+  setTimeout("mute($red)", 750);
+  setTimeout("mute($green)", 750);
+  setTimeout("mute($blue)", 750);
 
   i += 1;
   setTimeout("flashBoard(" + i + "," + l + ")", 500);
  } 
 
 function gameReset(){
+  flashBoard(0, 3);
+
   $sound.src = powerSound;
   $sound.load();
   $sound.play();
 
-  flashBoard(0, 3);
   console.log("Game Reset");
 }
 
@@ -106,69 +114,52 @@ function useStrictMode(){
     strictMode = false;
   }
 }
-function pressYellow(){
-  changeColorOn(0);
-  console.log('pressed yellow');
-  playSound(yellowSound, 0);
-  if (currentValue !== 0){
-    console.log('fail number');
+
+function colorPress(colorNum){
+  var colorNo = colorNum;
+
+  flash(colorOptions[colorNum]);
+
+  setTimeout(function(colorNo){
+    justSound(soundOptions[colorNum]);
+    mute(colorOptions[colorNum]);
+  }, 100);
+
+
+  if (currentValue !== colorNum){
     fail();
-    console.log(currentValue);
   } else {
-    console.log('correct choice');
-    iteration += 1;
-    currentValue = simonSays[iteration];
-    console.log(currentValue);
+    console.log("correct choice ", colorNum);
+    increment += 1;
+    currentValue = simonSays[increment];
   }
+  if (increment === simonSays.length){
+    playGame();
+  }
+
+
+
+}
+
+function pressYellow(){
+  colorPress(0);
 }
 
 function pressRed(){
-  changeColorOn(1);
-  console.log('Pressed Red');
-  playSound(redSound, 1);
-  if (currentValue !== 1){
-    console.log('fail number');
-    fail();
-  } else {
-    console.log('correct choice');
-    iteration += 1;
-    currentValue = simonSays[iteration];
-    console.log(currentValue);
-  }
+  colorPress(1);
 }
 
 function pressGreen(){
-  console.log('Pressed Green');
-  changeColorOn(2);
-  playSound(greenSound, 2);
-  if (currentValue !== 2){
-    console.log('fail number');
-    fail();
-  } else {
-    console.log('correct choice');
-    iteration += 1;
-    currentValue = simonSays[iteration];
-    console.log(currentValue);
-  }
+  colorPress(2);
 }
 
 function pressBlue(){
-  console.log('pressed Blue');
-  changeColorOn(3);
-  playSound(blueSound, 3);
-  if (currentValue !== 3){
-    console.log('fail number');
-    fail();
-  } else {
-    console.log('correct choice');
-    iteration += 1;
-    currentValue = simonSays[iteration];
-    console.log(currentValue);
-  }
+  colorPress(3);
 }
 
 
 function justSound(soundValue){
+  console.log('in sound with ', soundValue);
   $sound.src = soundValue;
   $sound.load();
   $sound.play();
@@ -205,12 +196,24 @@ function playGame(){
   var simonMove = simonNext();
   simonSays.push(simonMove);
 
-  startPlaying(0, simonSays.length);
-  currentValue = simonSays[iteration];
+  setTimeout(startPlaying(0, simonSays.length), 1000);
+  increment = 0;
+  currentValue = simonSays[0];
+  console.log(simonSays);
 }
 
 function fail(){
+  console.log("in fail");
   justSound(wrongAnsSound);
+
+  if (strictMode){
+    console.log('fail in strict');
+//    setTimeout(gameReset(), 750);
+  } else {
+    console.log('fail in  not  strict');
+//    setTimeout(startPlaying(0, simonSays.length), 750);
+
+  }
 }
 
 
