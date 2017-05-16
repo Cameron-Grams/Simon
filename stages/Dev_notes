@@ -1,3 +1,10 @@
 use of ```setTimeout``` as an offset for the flow of the game (especially when adding an additiona
 Simon move after player moves)
 
+
+
+
+issues with start of simon's turn and end of players input
+
+issues with the fail sound...
+
