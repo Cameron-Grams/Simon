@@ -79,17 +79,13 @@ function gameReset(){
 }
 
 function powerOnGame(){
-
   if (!powerOn){
     $gameOnBtn.style.fill = "rgb(250, 0, 20)"; 
     powerOn = true;
+    gameReset();
   } else {
-    $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
-    powerOn = false;
+    gameOff();
   }
-
-  gameReset();
- 
 }
 
 function startGame(){
@@ -98,11 +94,13 @@ function startGame(){
   if (!gameInPlay){
     $startBtn.style.fill = "rgb(20, 200, 50)"; 
     gameInPlay = true;
+    playGame();
   } else {
     $startBtn.style.fill = "rgb(0, 0, 0)"; 
+    simonSays = [];
     gameInPlay = false;
   }
-  playGame();
+  
 }
 
 function useStrictMode(){
@@ -123,7 +121,7 @@ function colorPress(colorNum){
   }
   var colorNo = colorNum;
   if (currentValue !== colorNum){
-    setTimeout(function(){fail()}, 1000);
+    setTimeout(function(){fail()}, 500);
   } else {
     console.log("correct choice ", colorNum);
     increment += 1;
@@ -160,7 +158,6 @@ function pressBlue(){
 
 
 function justSound(soundValue){
-  console.log('in sound with ', soundValue);
   $sound.src = soundValue;
   $sound.load();
   $sound.play();
@@ -204,15 +201,20 @@ function fail(){
 
   if (strictMode){
     console.log('fail in strict');
-//    setTimeout(gameReset(), 750);
+    simonSays = [];
+    setTimeout(function(){playGame()}, 2000);
   } else {
     console.log('fail in  not  strict');
-//    setTimeout(startPlaying(0, simonSays.length), 750);
-
+    setTimeout(function(){startPlaying(0, simonSays.length)}, 2000);
   }
 }
 
 function gameOff(){
+  justSound(clickSound);
+  $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
+  $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
+  $startBtn.style.fill = "rgb(0, 0, 0)"; 
+  simonSays = [];
   powerOn = false;
 }
 
