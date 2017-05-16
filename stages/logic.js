@@ -79,7 +79,6 @@ function gameReset(){
 }
 
 function powerOnGame(){
-  justSound(clickSound);
 
   if (!powerOn){
     $gameOnBtn.style.fill = "rgb(250, 0, 20)"; 
@@ -88,6 +87,9 @@ function powerOnGame(){
     $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
     powerOn = false;
   }
+
+  gameReset();
+ 
 }
 
 function startGame(){
@@ -116,7 +118,17 @@ function useStrictMode(){
 }
 
 function colorPress(colorNum){
+  if (!powerOn){
+    return;
+  }
   var colorNo = colorNum;
+  if (currentValue !== colorNum){
+    setTimeout(function(){fail()}, 1000);
+  } else {
+    console.log("correct choice ", colorNum);
+    increment += 1;
+    currentValue = simonSays[increment];
+  }
 
   flash(colorOptions[colorNum]);
 
@@ -125,20 +137,9 @@ function colorPress(colorNum){
     mute(colorOptions[colorNum]);
   }, 100);
 
-
-  if (currentValue !== colorNum){
-    fail();
-  } else {
-    console.log("correct choice ", colorNum);
-    increment += 1;
-    currentValue = simonSays[increment];
-  }
   if (increment === simonSays.length){
-    playGame();
+    setTimeout(function(){playGame()}, 1000);
   }
-
-
-
 }
 
 function pressYellow(){
@@ -188,15 +189,10 @@ function startPlaying(i, l){
   setTimeout("startPlaying("+ i + ", " + l + ")", buttonTimeInterval);
 };
 
-function simonNext(){
-  return Math.floor(Math.random() * 4);
-}
-
 function playGame(){
-  var simonMove = simonNext();
+  var simonMove = Math.floor(Math.random() * 4);
   simonSays.push(simonMove);
-
-  setTimeout(startPlaying(0, simonSays.length), 1000);
+  startPlaying(0, simonSays.length);
   increment = 0;
   currentValue = simonSays[0];
   console.log(simonSays);
@@ -216,8 +212,11 @@ function fail(){
   }
 }
 
+function gameOff(){
+  powerOn = false;
+}
 
-window.onload = gameReset();
+window.onload = gameOff();
 
 
 

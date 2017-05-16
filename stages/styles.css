@@ -20,33 +20,16 @@ body {
   opacity: 0.5;
 }
 
-#yellow:hover{
-  opacity: 1;
-}
-
 #red {
   opacity: 0.5;
-}
-
-#red:hover{
-  opacity: 1;
 }
 
 #green {
   opacity: 0.5;
 }
 
-#green:hover{
-  opacity: 1;
-}
-
 #blue {
   opacity: 0.5;
 }
-
-#blue:hover{
-  opacity: 1;
-}
-
 
 

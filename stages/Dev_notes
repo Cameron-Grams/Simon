@@ -4,7 +4,11 @@ Simon move after player moves)
 
 
 
-issues with start of simon's turn and end of players input
+1. issues with start of simon's turn and end of players input:
+ 
+2. issues with the fail sound...
 
-issues with the fail sound...
+
+both solved through use of ```setTimeout(function(){new function call}, time)```
+
 
