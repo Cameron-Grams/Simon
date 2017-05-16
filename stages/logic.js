@@ -1,4 +1,7 @@
+var $game = document.getElementById('game'); 
 var $sound = document.getElementById('sound');
+var $display = document.getElementById('display');
+var $displayText = document.getElementById('displayText');
 
 var $yellow = document.getElementById("yellow");
 var $red = document.getElementById("red");
@@ -16,7 +19,7 @@ var greenSound = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
 var yellowSound = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
 var wrongAnsSound = "http://soundbible.com/grab.php?id=1501&type=mp3";
 var clickSound = "http://soundbible.com/grab.php?id=1705&type=mp3";
-
+var victorySound = "http://soundbible.com/grab.php?id=1947&type=mp3";
 
 var powerOn = false;
 var gameInPlay = false;
@@ -75,6 +78,8 @@ function gameReset(){
   $sound.load();
   $sound.play();
 
+  $displayText.textContent = '-- --';
+
   console.log("Game Reset");
 }
 
@@ -89,6 +94,10 @@ function powerOnGame(){
 }
 
 function startGame(){
+  if (!powerOn){
+    return;
+  }
+
   justSound(clickSound);
 
   if (!gameInPlay){
@@ -104,6 +113,10 @@ function startGame(){
 }
 
 function useStrictMode(){
+  if (!powerOn){
+    return;
+  }
+
   justSound(clickSound);  
 
   if (!strictMode){
@@ -176,6 +189,12 @@ function changeColorOn(i){
   colorOptions[simonSays[i]].style.opacity = 1;
 }
 
+function displayProgress(arrLen){
+  $displayText.setAttribute('font-size', '50');
+  $displayText.textContent = arrLen;
+}
+
+
 function startPlaying(i, l){
   if (i == l) return;
   var callSound = soundOptions[simonSays[i]];
@@ -187,17 +206,38 @@ function startPlaying(i, l){
 };
 
 function playGame(){
+
+  if (simonSays.length === 3){
+    return victory();
+  }
+
   var simonMove = Math.floor(Math.random() * 4);
+
   simonSays.push(simonMove);
   startPlaying(0, simonSays.length);
   increment = 0;
   currentValue = simonSays[0];
   console.log(simonSays);
+  var simonProgress = simonSays.length;
+
+  if ((simonProgress === 5) || (simonProgress === 9) ){
+    buttonTimeInterval -= 250;
+    console.log(buttonTimeInterval);
+  }
+
+  if (simonProgress === 15){
+    buttonTimeInterval -= 100;
+  }
+
+  displayProgress(simonProgress);
 }
 
 function fail(){
   console.log("in fail");
   justSound(wrongAnsSound);
+  $display.setAttribute("fill", "rgb(200, 0, 0)");
+  setTimeout(function(){$display.setAttribute("fill", "rgb(70, 70, 70)");
+}, 1500);
 
   if (strictMode){
     console.log('fail in strict');
@@ -209,12 +249,39 @@ function fail(){
   }
 }
 
+function victory(){
+
+  justSound(victorySound);
+
+  $display.setAttribute('fill', 'rgb(5, 17, 142)');
+  $displayText.setAttribute('fill', 'rgb(250, 250, 250)');
+  $displayText.textContent = "Win!";
+  $displayText.setAttribute('font-size', '20');
+
+  var winnerText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+  winnerText.setAttribute('x', '220');
+  winnerText.setAttribute('y', '290');
+  winnerText.setAttribute('fill', 'rgb(250, 250, 250)');
+  winnerText.setAttribute('font-size', '20');
+  var youWin = document.createTextNode("You");
+  winnerText.appendChild(youWin);
+  $game.appendChild(winnerText);
+}
+
 function gameOff(){
   justSound(clickSound);
+
+  $display.setAttribute('fill', 'rgb(70, 70, 70)');
+  $display.setAttribute('fill', 'rgb(0, 0, 0)');
+  $displayText.textContent = "Off";
+  $game.removeChild(winnerText);
+
   $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
   $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
   $startBtn.style.fill = "rgb(0, 0, 0)"; 
   simonSays = [];
+  gameInPlay = false;
+  strictMode = false;
   powerOn = false;
 }
 
