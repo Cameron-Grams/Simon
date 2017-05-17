@@ -25,6 +25,7 @@ var victorySound = "http://soundbible.com/grab.php?id=1947&type=mp3";
 var powerOn = false;
 var gameInPlay = false;
 var strictMode = false;
+var victory = false;
 
 var buttonTimeInterval = 1000;
 
@@ -103,17 +104,13 @@ function startGame(){
 
   if (!gameInPlay){
     $startBtn.style.fill = "rgb(20, 200, 50)"; 
-    gameInPlay = true;
-  } else {
+   } else {
     $startBtn.style.fill = "rgb(0, 0, 0)"
     setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
-    gameInPlay = false;
-    resetDisplay();
   }
-  
+  resetDisplay(); 
   simonSays = [];
   playGame();
-
 }
 
 function useStrictMode(){
@@ -210,9 +207,10 @@ function startPlaying(i, l){
 };
 
 function playGame(){
+  gameInPlay = true;
 
-  if (simonSays.length === 3){
-    return victory();
+  if (simonSays.length === 20){
+    return gameVictory();
   }
 
   var simonMove = Math.floor(Math.random() * 4);
@@ -253,11 +251,11 @@ function fail(){
   }
 }
 
-function victory(){
+function gameVictory(){
 
   flashBoard(0, 3);
   justSound(victorySound);
-  gameInPlay = false;
+  victory = true;
   $display.setAttribute('fill', 'rgb(5, 17, 142)');
   $displayText.setAttribute('fill', 'rgb(250, 250, 250)');
   $displayText.textContent = "Win!";
@@ -277,7 +275,7 @@ function resetDisplay(){
   $display.setAttribute('fill', 'rgb(70, 70, 70)');
   $displayText.setAttribute('fill', 'rgb(0, 0, 0)');
 
-  if (!gameInPlay){
+  if (victory){
     winnerText.parentNode.removeChild(winnerText);
   }
   gameInPlay = true;
@@ -294,6 +292,8 @@ function gameOff(){
   $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
   $startBtn.style.fill = "rgb(0, 0, 0)"; 
   simonSays = [];
+
+  victory = false;
   gameInPlay = false;
   strictMode = false;
   powerOn = false;
