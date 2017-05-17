@@ -16,3 +16,9 @@ http://stackoverflow.com/questions/14758125/setting-text-svg-element-dynamically
 both solved through use of ```setTimeout(function(){new function call}, time)```
 
 
+removing child element with ```winnerText.parentNode.removeChild(winnerText);```
+
+
+102 assigning a local variable to the name of the element in color press was necessary. Why?
+
+

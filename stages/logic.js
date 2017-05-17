@@ -75,13 +75,8 @@ function flashBoard(i, l){
 
 function gameReset(){
   flashBoard(0, 3);
-
-  $sound.src = powerSound;
-  $sound.load();
-  $sound.play();
-
+  justSound(powerSound);
   $displayText.textContent = '-- --';
-
   console.log("Game Reset");
 }
 
@@ -99,12 +94,10 @@ function startGame(){
   if (!powerOn){
     return;
   }
-
   justSound(clickSound);
-
   if (!gameInPlay){
     $startBtn.style.fill = "rgb(20, 200, 50)"; 
-   } else {
+  } else {
     $startBtn.style.fill = "rgb(0, 0, 0)"
     setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
   }
@@ -117,9 +110,7 @@ function useStrictMode(){
   if (!powerOn){
     return;
   }
-
   justSound(clickSound);  
-
   if (!strictMode){
     $strictModeBtn.style.fill = "rgb(250, 250, 250)"; 
     strictMode = true;
@@ -133,7 +124,7 @@ function colorPress(colorNum){
   if (!powerOn){
     return;
   }
-  var colorNo = colorNum;
+  var colorNo = colorNum; //not sure why this was needed but it was...
   if (currentValue !== colorNum){
     setTimeout(function(){fail()}, 500);
   } else {
@@ -141,14 +132,11 @@ function colorPress(colorNum){
     increment += 1;
     currentValue = simonSays[increment];
   }
-
   flash(colorOptions[colorNum]);
-
   setTimeout(function(colorNo){
     justSound(soundOptions[colorNum]);
     mute(colorOptions[colorNum]);
   }, 100);
-
   if (increment === simonSays.length){
     setTimeout(function(){playGame()}, 1000);
   }
@@ -274,7 +262,6 @@ function gameVictory(){
 function resetDisplay(){
   $display.setAttribute('fill', 'rgb(70, 70, 70)');
   $displayText.setAttribute('fill', 'rgb(0, 0, 0)');
-
   if (victory){
     winnerText.parentNode.removeChild(winnerText);
   }
