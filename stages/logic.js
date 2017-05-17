@@ -208,8 +208,8 @@ function startPlaying(i, l){
 
 function playGame(){
   gameInPlay = true;
-
-  if (simonSays.length === 20){
+  victory = false;
+  if (simonSays.length === 2){
     return gameVictory();
   }
 
@@ -285,7 +285,7 @@ function gameOff(){
   justSound(clickSound);
   resetDisplay();
   $displayText.textContent = "Off";
-
+  $displayText.setAttribute('font-size', '20');
 //  $game.removeChild(winnerText);
 
   $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
