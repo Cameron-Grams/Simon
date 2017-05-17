@@ -2,6 +2,7 @@ var $game = document.getElementById('game');
 var $sound = document.getElementById('sound');
 var $display = document.getElementById('display');
 var $displayText = document.getElementById('displayText');
+var youWin = null, winnerText = null;
 
 var $yellow = document.getElementById("yellow");
 var $red = document.getElementById("red");
@@ -103,13 +104,15 @@ function startGame(){
   if (!gameInPlay){
     $startBtn.style.fill = "rgb(20, 200, 50)"; 
     gameInPlay = true;
-    playGame();
   } else {
-    $startBtn.style.fill = "rgb(0, 0, 0)"; 
-    simonSays = [];
-    gameInPlay = false;
+    $startBtn.style.fill = "rgb(0, 0, 0)"
+    setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
+    gameReset();
   }
   
+  simonSays = [];
+  playGame();
+
 }
 
 function useStrictMode(){
@@ -251,6 +254,7 @@ function fail(){
 
 function victory(){
 
+  flashBoard(0, 3);
   justSound(victorySound);
 
   $display.setAttribute('fill', 'rgb(5, 17, 142)');
@@ -258,12 +262,12 @@ function victory(){
   $displayText.textContent = "Win!";
   $displayText.setAttribute('font-size', '20');
 
-  var winnerText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+  winnerText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
   winnerText.setAttribute('x', '220');
   winnerText.setAttribute('y', '290');
   winnerText.setAttribute('fill', 'rgb(250, 250, 250)');
   winnerText.setAttribute('font-size', '20');
-  var youWin = document.createTextNode("You");
+  youWin = document.createTextNode("You");
   winnerText.appendChild(youWin);
   $game.appendChild(winnerText);
 }
@@ -272,9 +276,12 @@ function gameOff(){
   justSound(clickSound);
 
   $display.setAttribute('fill', 'rgb(70, 70, 70)');
-  $display.setAttribute('fill', 'rgb(0, 0, 0)');
+  $displayText.setAttribute('fill', 'rgb(0, 0, 0)');
   $displayText.textContent = "Off";
-  $game.removeChild(winnerText);
+
+  winnerText.parentNode.removeChild(winnerText);
+//  $game.removeChild(winnerText);
+  
 
   $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
   $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
