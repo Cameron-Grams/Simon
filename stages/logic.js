@@ -107,7 +107,8 @@ function startGame(){
   } else {
     $startBtn.style.fill = "rgb(0, 0, 0)"
     setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
-    gameReset();
+    gameInPlay = false;
+    resetDisplay();
   }
   
   simonSays = [];
@@ -256,7 +257,7 @@ function victory(){
 
   flashBoard(0, 3);
   justSound(victorySound);
-
+  gameInPlay = false;
   $display.setAttribute('fill', 'rgb(5, 17, 142)');
   $displayText.setAttribute('fill', 'rgb(250, 250, 250)');
   $displayText.textContent = "Win!";
@@ -272,16 +273,22 @@ function victory(){
   $game.appendChild(winnerText);
 }
 
-function gameOff(){
-  justSound(clickSound);
-
+function resetDisplay(){
   $display.setAttribute('fill', 'rgb(70, 70, 70)');
   $displayText.setAttribute('fill', 'rgb(0, 0, 0)');
+
+  if (!gameInPlay){
+    winnerText.parentNode.removeChild(winnerText);
+  }
+  gameInPlay = true;
+}
+
+function gameOff(){
+  justSound(clickSound);
+  resetDisplay();
   $displayText.textContent = "Off";
 
-  winnerText.parentNode.removeChild(winnerText);
 //  $game.removeChild(winnerText);
-  
 
   $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
   $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
