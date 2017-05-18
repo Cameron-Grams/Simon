@@ -158,7 +158,6 @@ function pressBlue(){
   colorPress(3);
 }
 
-
 function justSound(soundValue){
   $sound.src = soundValue;
   $sound.load();
@@ -167,6 +166,8 @@ function justSound(soundValue){
 
 function playSound(soundValue, i){
   justSound(soundValue);
+//  var muteColor = colorOptions[simonSays[i]];
+//  setTimeout('mute(' + muteColor + ')', buttonTimeInterval - 300);
   setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 300);
 }
 
@@ -174,22 +175,24 @@ function changeColorOff(i){
   colorOptions[simonSays[i]].style.opacity = 0.6;
 }
 
-function changeColorOn(i){
-  colorOptions[simonSays[i]].style.opacity = 1;
-}
-
 function displayProgress(arrLen){
   $displayText.setAttribute('font-size', '50');
   $displayText.textContent = arrLen;
+
+  if (arrLen < 10){
+    $displayText.setAttribute('x', '227');
+  } else {
+    $displayText.setAttribute('x', '213');
+  }
 }
 
 
 function startPlaying(i, l){
   if (i == l) return;
   var callSound = soundOptions[simonSays[i]];
-  var callColor = colorOptions[simonSays[i]];
   playSound(callSound, i);
-  changeColorOn(i)
+  var flashColor = colorOptions[simonSays[i]];
+  flash(flashColor);
   i += 1;
   setTimeout("startPlaying("+ i + ", " + l + ")", buttonTimeInterval);
 };
@@ -197,12 +200,10 @@ function startPlaying(i, l){
 function playGame(){
   gameInPlay = true;
   victory = false;
-  if (simonSays.length === 2){
+  if (simonSays.length === 20){
     return gameVictory();
   }
-
   var simonMove = Math.floor(Math.random() * 4);
-
   simonSays.push(simonMove);
   startPlaying(0, simonSays.length);
   increment = 0;
@@ -227,8 +228,7 @@ function fail(){
   justSound(wrongAnsSound);
   $display.setAttribute("fill", "rgb(200, 0, 0)");
   setTimeout(function(){$display.setAttribute("fill", "rgb(70, 70, 70)");
-}, 1500);
-
+  }, 1500);
   if (strictMode){
     console.log('fail in strict');
     simonSays = [];
@@ -240,7 +240,6 @@ function fail(){
 }
 
 function gameVictory(){
-
   flashBoard(0, 3);
   justSound(victorySound);
   victory = true;
@@ -248,7 +247,6 @@ function gameVictory(){
   $displayText.setAttribute('fill', 'rgb(250, 250, 250)');
   $displayText.textContent = "Win!";
   $displayText.setAttribute('font-size', '20');
-
   winnerText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
   winnerText.setAttribute('x', '220');
   winnerText.setAttribute('y', '290');

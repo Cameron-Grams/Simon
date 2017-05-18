@@ -13,7 +13,7 @@ http://stackoverflow.com/questions/14758125/setting-text-svg-element-dynamically
 2. issues with the fail sound...
 
 
-both solved through use of ```setTimeout(function(){new function call}, time)```
+both solved through use of ```setTimeout(function(){new function call}, time)``` 230
 
 
 removing child element with ```winnerText.parentNode.removeChild(winnerText);```
@@ -21,4 +21,6 @@ removing child element with ```winnerText.parentNode.removeChild(winnerText);```
 
 102 assigning a local variable to the name of the element in color press was necessary. Why?
 
+
+playSound and the call to ```mute``` not working but ```changeColorOff``` does
 
