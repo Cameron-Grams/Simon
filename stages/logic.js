@@ -100,6 +100,7 @@ function startGame(){
     setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
   }
   resetDisplay(); 
+  buttonTimeInterval = 1100;
   simonSays = [];
   playGame();
 }
@@ -166,7 +167,7 @@ function playSound(soundValue, i){
   justSound(soundValue);
 //  var muteColor = colorOptions[simonSays[i]];
 //  setTimeout('mute(' + muteColor + ')', buttonTimeInterval - 300);
-  setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 300);
+  setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 200);
 }
 
 function changeColorOff(i){
@@ -229,6 +230,7 @@ function fail(){
     setTimeout(function(){playGame()}, 2000);
   } else {
     console.log('fail in  not  strict');
+    increment = 0;
     setTimeout(function(){startPlaying(0, simonSays.length)}, 2000);
   }
 }
