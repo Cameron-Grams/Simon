@@ -33,8 +33,6 @@ var simonSays = [];
 var currentValue = null;
 var increment = 0;
 
-// simonSays = [0,1,2,3];
-
 var soundOptions = {
   0: yellowSound,
   1: redSound,
@@ -186,7 +184,6 @@ function displayProgress(arrLen){
   }
 }
 
-
 function startPlaying(i, l){
   if (i == l) return;
   var callSound = soundOptions[simonSays[i]];
@@ -210,16 +207,13 @@ function playGame(){
   currentValue = simonSays[0];
   console.log(simonSays);
   var simonProgress = simonSays.length;
-
   if ((simonProgress === 5) || (simonProgress === 9) ){
     buttonTimeInterval -= 250;
     console.log(buttonTimeInterval);
   }
-
   if (simonProgress === 15){
     buttonTimeInterval -= 100;
   }
-
   displayProgress(simonProgress);
 }
 
@@ -271,13 +265,10 @@ function gameOff(){
   resetDisplay();
   $displayText.textContent = "Off";
   $displayText.setAttribute('font-size', '20');
-//  $game.removeChild(winnerText);
-
   $gameOnBtn.style.fill = "rgb(0, 0, 0)"; 
   $strictModeBtn.style.fill = "rgb(0, 0, 0)"; 
   $startBtn.style.fill = "rgb(0, 0, 0)"; 
   simonSays = [];
-
   victory = false;
   gameInPlay = false;
   strictMode = false;
