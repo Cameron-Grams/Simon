@@ -186,7 +186,12 @@ function displayProgress(arrLen){
 }
 
 function startPlaying(i, l){
+
   if (i == l) return;
+
+  increment = 0;
+  currentValue = simonSays[0];
+
   var callSound = soundOptions[simonSays[i]];
   playSound(callSound, i);
   var flashColor = colorOptions[simonSays[i]];
@@ -204,8 +209,6 @@ function playGame(){
   var simonMove = Math.floor(Math.random() * 4);
   simonSays.push(simonMove);
   startPlaying(0, simonSays.length);
-  increment = 0;
-  currentValue = simonSays[0];
   console.log(simonSays);
   var simonProgress = simonSays.length;
   if ((simonProgress === 5) || (simonProgress === 9) ){
@@ -230,7 +233,6 @@ function fail(){
     setTimeout(function(){playGame()}, 2000);
   } else {
     console.log('fail in  not  strict');
-    increment = 0;
     setTimeout(function(){startPlaying(0, simonSays.length)}, 2000);
   }
 }

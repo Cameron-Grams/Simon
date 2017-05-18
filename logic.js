@@ -100,6 +100,7 @@ function startGame(){
     setTimeout(function(){ return $startBtn.style.fill = "rgb(20, 200, 50)";}, 200); 
   }
   resetDisplay(); 
+  buttonTimeInterval = 1100;
   simonSays = [];
   playGame();
 }
@@ -166,7 +167,7 @@ function playSound(soundValue, i){
   justSound(soundValue);
 //  var muteColor = colorOptions[simonSays[i]];
 //  setTimeout('mute(' + muteColor + ')', buttonTimeInterval - 300);
-  setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 300);
+  setTimeout('changeColorOff('+ i + ')', buttonTimeInterval - 200);
 }
 
 function changeColorOff(i){
@@ -185,7 +186,12 @@ function displayProgress(arrLen){
 }
 
 function startPlaying(i, l){
+
   if (i == l) return;
+
+  increment = 0;
+  currentValue = simonSays[0];
+
   var callSound = soundOptions[simonSays[i]];
   playSound(callSound, i);
   var flashColor = colorOptions[simonSays[i]];
@@ -203,8 +209,6 @@ function playGame(){
   var simonMove = Math.floor(Math.random() * 4);
   simonSays.push(simonMove);
   startPlaying(0, simonSays.length);
-  increment = 0;
-  currentValue = simonSays[0];
   console.log(simonSays);
   var simonProgress = simonSays.length;
   if ((simonProgress === 5) || (simonProgress === 9) ){
