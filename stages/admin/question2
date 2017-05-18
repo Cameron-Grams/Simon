@@ -1,0 +1,8 @@
+While working on a [project]( https://codereview.stackexchange.com/questions/163675/simon-in-javascript)
+I had to delay the execution of player input (in the ```fail()``` function of the project).
+I tried to accomplish this with ```setTimeout(playGame(), 2000)``` . 
+This did not work but using ```setTimeout(function(){playGame()}, 2000)``` did.
+I am not clear why there had to be an additonal function statement within the ```setTimeout```. 
+
+Based on reading the [MDN discussion of ```setTimeout```](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)
+I take it this is a scope issue?  Is that correct? Any insight or explanation would be appreciated.  Thank you.  

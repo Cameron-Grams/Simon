@@ -75,7 +75,6 @@ function gameReset(){
   flashBoard(0, 3);
   justSound(powerSound);
   $displayText.textContent = '-- --';
-  console.log("Game Reset");
 }
 
 function powerOnGame(){
@@ -127,7 +126,6 @@ function colorPress(colorNum){
   if (currentValue !== colorNum){
     setTimeout(function(){fail()}, 500);
   } else {
-    console.log("correct choice ", colorNum);
     increment += 1;
     currentValue = simonSays[increment];
   }
@@ -209,11 +207,9 @@ function playGame(){
   var simonMove = Math.floor(Math.random() * 4);
   simonSays.push(simonMove);
   startPlaying(0, simonSays.length);
-  console.log(simonSays);
   var simonProgress = simonSays.length;
   if ((simonProgress === 5) || (simonProgress === 9) ){
     buttonTimeInterval -= 250;
-    console.log(buttonTimeInterval);
   }
   if (simonProgress === 15){
     buttonTimeInterval -= 100;
@@ -222,17 +218,14 @@ function playGame(){
 }
 
 function fail(){
-  console.log("in fail");
   justSound(wrongAnsSound);
   $display.setAttribute("fill", "rgb(200, 0, 0)");
   setTimeout(function(){$display.setAttribute("fill", "rgb(70, 70, 70)");
   }, 1500);
   if (strictMode){
-    console.log('fail in strict');
     simonSays = [];
     setTimeout(function(){playGame()}, 2000);
   } else {
-    console.log('fail in  not  strict');
     setTimeout(function(){startPlaying(0, simonSays.length)}, 2000);
   }
 }

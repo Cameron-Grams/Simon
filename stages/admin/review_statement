@@ -1,0 +1,18 @@
+This is a game of Simon using plain Javascript.  I would welcome any comments, suggestions,
+insights or ideas for improvement.  One choice that I made was to have the player's turn 
+compare values against a game array ( ```simonSays``` )by using the ```increment``` variable.  
+If there is a better way to do this I would be very interested.  This program also makes extensive use of the 
+```setTimeout``` function, if there are other ways to achieve this effect I would also be 
+very interested. 
+
+Also when I was refactoring and trying to cut unnecessary code I was unable to re-use the call
+to the ```mute(color)``` function from the ```playSound(soundValue, i)``` and was forced to
+use a separate function, ```changeColorOff(i)``` in this one place.  I left the commented code
+in to show what I tried. I am not clear why this was necessary.  Any insights would be appreciated.  
+
+Thank you for your time.
+
+The working game is on [CodePen](http://codepen.io/cgrams/full/VbGXWE/).
+
+The HTML:
+
